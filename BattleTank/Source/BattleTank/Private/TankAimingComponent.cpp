@@ -19,11 +19,12 @@ UTankAimingComponent::UTankAimingComponent()
 
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet) {
-	Barrel = BarrelToSet;
+	Barrel = BarrelToSet;	
 }
 
 void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet) {
 	Turret = TurretToSet;
+	UE_LOG(LogTemp, Warning, TEXT("Looking for turret"));
 }
 
 // Called when the game starts
@@ -66,18 +67,13 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		TurnTowards(AimDirection);
 		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: Barrel->Elavate called at speed: %f"), Time);
-	} else {
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solve found"), Time);
-	}
+	} 
 }
 
 void UTankAimingComponent::TurnTowards(FVector AimDirection) {
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *DeltaRotator.ToString());
 
 	Barrel->Elavate(DeltaRotator.Pitch);
 	Turret->TurnToTarget(DeltaRotator.Yaw);
