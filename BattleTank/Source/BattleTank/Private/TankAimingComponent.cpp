@@ -24,7 +24,6 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet) {
 
 void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet) {
 	Turret = TurretToSet;
-	UE_LOG(LogTemp, Warning, TEXT("Looking for turret"));
 }
 
 // Called when the game starts
