@@ -6,10 +6,10 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h" //Must be last include
 
-class ATank;
+class UTankAimingComponent;
 
 /**
- * 
+ * Responsible for helping the player aim
  */
 UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
@@ -18,10 +18,13 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	
 public:
 
+protected:
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+		void FoundAimingComponent(UTankAimingComponent* AimCompRef);
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-	ATank* GetControlledTank() const;
+
 	void AimTowardCrosshair();
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 	UPROPERTY(EditAnywhere)

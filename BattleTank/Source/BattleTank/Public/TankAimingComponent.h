@@ -5,6 +5,13 @@
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
+UENUM()
+enum class EFiringStatus :uint8 {
+	Reloading,
+	Aiming,
+	Locked
+};
+
 class UTankBarrel;
 class UTankTurret;
 
@@ -16,20 +23,23 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTankAimingComponent();
-
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
-	void SetTurretReference(UTankTurret* TurretToSet);
-
-	// Called when the game starts
-	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintCallable, Category = "Input")
+		void Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 	
 	// Called every frame
 	virtual void TickComponent( float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction ) override;
 
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
+protected:
+	UPROPERTY(BlueprintReadOnly, Category = "State")
+		EFiringStatus FiringStatus = EFiringStatus::Reloading;
 private:
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
 	void TurnTowards(FVector AimDirection);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+		float LaunchSpeed = 100000; // Stating value of 1000m/s
+
 };

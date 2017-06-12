@@ -18,7 +18,7 @@ public:
 	void TurnToTarget(float RelativeSpeed);
 
 private:
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditAnywhere, Category = "Setup")
 		float MaxDegreesPerSecond = 25.0f;
 	
 };

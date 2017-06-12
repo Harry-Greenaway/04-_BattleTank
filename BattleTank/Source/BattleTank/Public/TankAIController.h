@@ -6,8 +6,6 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-class ATank;
-
 /**
  * 
  */
@@ -22,5 +20,5 @@ public:
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-
+	float ProximityRadius = 2000.f; //How close the tank can get to the player
 };
