@@ -9,7 +9,8 @@ UENUM()
 enum class EFiringStatus :uint8 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo
 };
 
 class UTankBarrel;
@@ -30,6 +31,10 @@ public:
 		void Fire();
 
 	void AimAt(FVector HitLocation);
+	EFiringStatus GetFiringStatus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetRoundsLeft() const;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -51,5 +56,6 @@ private:
 		float LaunchSpeed = 100000; // Stating value of 1000m/s
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint;
+	int RoundsLeft = 3;
 
 };

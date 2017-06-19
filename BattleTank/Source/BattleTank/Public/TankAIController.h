@@ -16,9 +16,13 @@ class BATTLETANK_API ATankAIController : public AAIController
 
 public:
 
+protected:
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		float ProximityRadius = 2000.f; //How close the tank can get to the player
+
 
 private:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
-	float ProximityRadius = 2000.f; //How close the tank can get to the player
+
 };
